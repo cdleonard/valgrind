@@ -106,7 +106,11 @@
 #    error "Unknown endianness"
 #  endif
 #  define VG_ELF_MACHINE      EM_MIPS
-#  define VG_ELF_CLASS        ELFCLASS64
+#  if defined(VGP_mips64n32_linux)
+#    define VG_ELF_CLASS        ELFCLASS32
+#  else
+#    define VG_ELF_CLASS        ELFCLASS64
+#  endif
 #  undef  VG_PLAT_USES_PPCTOC
 #else
 #  error Unknown platform
