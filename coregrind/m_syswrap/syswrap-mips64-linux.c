@@ -119,6 +119,7 @@ asm (
 
 #define __NR_CLONE        __NR_clone
 #define __NR_EXIT         __NR_exit
+#define _MIPS_ARCH_OCTEON { (VEX_PRID_COMP_CAVIUM == VG_(get_machine_model))}
 
 ULong do_syscall_clone_mips64_linux ( Word (*fn) (void *),  /* a0 - 4 */
                                       void* stack,          /* a1 - 5 */
@@ -162,6 +163,9 @@ asm(
 "   nop\n"
 
 "   ld $25,0($29)\n"
+#if defined(_MIPS_ARCH_OCTEON)
+   "move    $k0, $5\n"
+#endif
 "   jalr $25\n"
 "   ld $4,8($29)\n"
 
@@ -239,7 +243,12 @@ static SysRes do_clone ( ThreadId ptid,
        res = sys_set_tls(ctid, child_tls);
        if (sr_isError(res))
           goto out;
+#if defined(_MIPS_ARCH_OCTEON)
+      ctst->arch.vex.guest_ULR = child_tls;
+      ctst->arch.vex.guest_r26 = child_tls; /* Cavium OCTEON */
+#else
        ctst->arch.vex.guest_r27 = child_tls;
+#endif
    }
 
    flags &= ~VKI_CLONE_SETTLS;
@@ -284,6 +293,9 @@ void setup_child ( /* OUT */ ThreadArchState * child,
 SysRes sys_set_tls ( ThreadId tid, Addr tlsptr )
 {
    VG_(threads)[tid].arch.vex.guest_ULR = tlsptr;
+#if defined(_MIPS_ARCH_OCTEON)
+  VG_(threads)[tid].arch.vex.guest_r26 = tlsptr; /* Cavium OCTEON */
+#endif
    return VG_(mk_SysRes_Success)( 0 );
 }
 
