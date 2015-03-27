@@ -320,7 +320,7 @@ typedef
       Int   fp_off;
    }
    DiCfSI_m;
-#elif defined(VGA_mips32) || defined(VGA_mips64)
+#elif defined(VGA_mips32) || defined(VGA_mips64) || defined(VGA_mips64n32)
 typedef
    struct {
       UChar cfa_how; /* a CFIC_ value */

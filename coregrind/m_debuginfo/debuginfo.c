@@ -945,7 +945,7 @@ ULong VG_(di_notify_mmap)( Addr a, Bool allow_SkFileV, Int use_fd )
    is_ro_map = False;
 
 #  if defined(VGA_x86) || defined(VGA_ppc32) || defined(VGA_mips32) \
-      || defined(VGA_mips64)
+      || defined(VGA_mips64) || defined(VGA_mips64n32)
    is_rx_map = seg->hasR && seg->hasX;
    is_rw_map = seg->hasR && seg->hasW;
 #  elif defined(VGA_amd64) || defined(VGA_ppc64be) || defined(VGA_ppc64le)  \
@@ -2482,7 +2482,7 @@ UWord evalCfiExpr ( const XArray* exprs, Int ix,
             case Creg_S390_SP: return eec->uregs->sp;
             case Creg_S390_FP: return eec->uregs->fp;
             case Creg_S390_LR: return eec->uregs->lr;
-#           elif defined(VGA_mips32) || defined(VGA_mips64)
+#           elif defined(VGA_mips32) || defined(VGA_mips64) || defined(VGA_mips64n32)
             case Creg_IA_IP: return eec->uregs->pc;
             case Creg_IA_SP: return eec->uregs->sp;
             case Creg_IA_BP: return eec->uregs->fp;
@@ -2733,7 +2733,7 @@ static Addr compute_cfa ( const D3UnwindRegs* uregs,
       case CFIC_IA_BPREL:
          cfa = cfsi_m->cfa_off + uregs->fp;
          break;
-#     elif defined(VGA_mips32) || defined(VGA_mips64)
+#     elif defined(VGA_mips32) || defined(VGA_mips64) || defined(VGA_mips64n32)
       case CFIC_IA_SPREL:
          cfa = cfsi_m->cfa_off + uregs->sp;
          break;
@@ -2859,7 +2859,7 @@ Bool VG_(use_CF_info) ( /*MOD*/D3UnwindRegs* uregsHere,
    ipHere = uregsHere->r15;
 #  elif defined(VGA_s390x)
    ipHere = uregsHere->ia;
-#  elif defined(VGA_mips32) || defined(VGA_mips64)
+#  elif defined(VGA_mips32) || defined(VGA_mips64) || defined(VGA_mips64n32)
    ipHere = uregsHere->pc;
 #  elif defined(VGA_ppc32) || defined(VGA_ppc64be) || defined(VGA_ppc64le)
 #  elif defined(VGP_arm64_linux)
@@ -2941,7 +2941,7 @@ Bool VG_(use_CF_info) ( /*MOD*/D3UnwindRegs* uregsHere,
    COMPUTE(uregsPrev.ia, uregsHere->ia, cfsi_m->ra_how, cfsi_m->ra_off);
    COMPUTE(uregsPrev.sp, uregsHere->sp, cfsi_m->sp_how, cfsi_m->sp_off);
    COMPUTE(uregsPrev.fp, uregsHere->fp, cfsi_m->fp_how, cfsi_m->fp_off);
-#  elif defined(VGA_mips32) || defined(VGA_mips64)
+#  elif defined(VGA_mips32) || defined(VGA_mips64) || defined(VGA_mips64n32)
    COMPUTE(uregsPrev.pc, uregsHere->pc, cfsi_m->ra_how, cfsi_m->ra_off);
    COMPUTE(uregsPrev.sp, uregsHere->sp, cfsi_m->sp_how, cfsi_m->sp_off);
    COMPUTE(uregsPrev.fp, uregsHere->fp, cfsi_m->fp_how, cfsi_m->fp_off);

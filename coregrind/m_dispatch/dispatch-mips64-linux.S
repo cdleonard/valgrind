@@ -30,7 +30,7 @@
 */
 
 
-#if defined(VGP_mips64_linux)
+#if defined(VGP_mips64_linux) || defined(VGP_mips64n32_linux)
 
 #include "pub_core_basics_asm.h"
 #include "pub_core_dispatch_asm.h"
@@ -239,7 +239,7 @@ VG_(disp_cp_evcheck_fail):
 /* Let the linker know we do not need an executable stack */
 .section .note.GNU-stack,"",@progbits
 
-#endif // defined(VGP_mips64_linux)
+#endif // defined(VGP_mips64_linux) || defined(VGP_mips64n32_linux)
 /*--------------------------------------------------------------------*/
 /*--- end                                                          ---*/
 /*--------------------------------------------------------------------*/

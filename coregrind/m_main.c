@@ -2162,7 +2162,8 @@ Int valgrind_main ( Int argc, HChar **argv, HChar **envp )
       iters = 5;
 #     elif defined(VGP_s390x_linux)
       iters = 10;
-#     elif defined(VGP_mips32_linux) || defined(VGP_mips64_linux)
+#     elif defined(VGP_mips32_linux) || defined(VGP_mips64_linux) \
+         || defined(VGP_mips64n32_linux)
       iters = 10;
 #     elif defined(VGO_darwin)
       iters = 3;
@@ -3167,7 +3168,7 @@ asm("\n"
     "\tbreak  0x7\n"
     ".previous\n"
 );
-#elif defined(VGP_mips64_linux)
+#elif defined(VGP_mips64_linux) || defined(VGP_mips64n32_linux)
 asm(
 ".text\n"
 ".globl __start\n"

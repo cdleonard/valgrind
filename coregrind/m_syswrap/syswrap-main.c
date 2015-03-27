@@ -510,7 +510,7 @@ void getSyscallArgsFromGuestState ( /*OUT*/SyscallArgs*       canonical,
       canonical->arg8 = __NR_syscall;
    }
 
-#elif defined(VGP_mips64_linux)
+#elif defined(VGP_mips64_linux) || defined(VGP_mips64n32_linux)
    VexGuestMIPS64State* gst = (VexGuestMIPS64State*)gst_vanilla;
    canonical->sysno = gst->guest_r2;    // v0
    canonical->arg1  = gst->guest_r4;    // a0
@@ -798,7 +798,7 @@ void putSyscallArgsIntoGuestState ( /*IN*/ SyscallArgs*       canonical,
       *((UInt*) (gst->guest_r29 + 24)) = canonical->arg6; // 24(sp)
    }
 
-#elif defined(VGP_mips64_linux)
+#elif defined(VGP_mips64_linux) || defined(VGP_mips64n32_linux)
    VexGuestMIPS64State* gst = (VexGuestMIPS64State*)gst_vanilla;
    gst->guest_r2 = canonical->sysno;
    gst->guest_r4 = canonical->arg1;
@@ -869,7 +869,7 @@ void getSyscallStatusFromGuestState ( /*OUT*/SyscallStatus*     canonical,
    canonical->sres = VG_(mk_SysRes_mips32_linux)( v0, v1, a3 );
    canonical->what = SsComplete;
 
-#  elif defined(VGP_mips64_linux)
+#  elif defined(VGP_mips64_linux) || defined(VGP_mips64n32_linux)
    VexGuestMIPS64State* gst = (VexGuestMIPS64State*)gst_vanilla;
    ULong                v0 = gst->guest_r2;    // v0
    ULong                v1 = gst->guest_r3;    // v1
@@ -1146,7 +1146,7 @@ void putSyscallStatusIntoGuestState ( /*IN*/ ThreadId tid,
    VG_TRACK( post_reg_write, Vg_CoreSysCall, tid,
              OFFSET_mips32_r7, sizeof(UWord) );
 
-#  elif defined(VGP_mips64_linux)
+#  elif defined(VGP_mips64_linux) || defined(VGP_mips64n32_linux)
    VexGuestMIPS64State* gst = (VexGuestMIPS64State*)gst_vanilla;
    vg_assert(canonical->what == SsComplete);
    if (sr_isError(canonical->sres)) {
@@ -1268,7 +1268,7 @@ void getSyscallArgLayout ( /*OUT*/SyscallArgLayout* layout )
    layout->uu_arg7  = -1; /* impossible value */
    layout->uu_arg8  = -1; /* impossible value */
 
-#elif defined(VGP_mips64_linux)
+#elif defined(VGP_mips64_linux) || defined(VGP_mips64n32_linux)
    layout->o_sysno  = OFFSET_mips64_r2;
    layout->o_arg1   = OFFSET_mips64_r4;
    layout->o_arg2   = OFFSET_mips64_r5;
@@ -2196,7 +2196,7 @@ void ML_(fixup_guest_state_to_restart_syscall) ( ThreadArchState* arch )
       vg_assert(p[0] == 0x0A);
    }
 
-#elif defined(VGP_mips32_linux) || defined(VGP_mips64_linux)
+#elif defined(VGP_mips32_linux) || defined(VGP_mips64_linux) || defined(VGP_mips64n32_linux)
 
    arch->vex.guest_PC -= 4;             // sizeof(mips instr)
 

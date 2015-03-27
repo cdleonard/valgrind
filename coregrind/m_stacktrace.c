@@ -1238,7 +1238,7 @@ UInt VG_(get_StackTrace_wrk) ( ThreadId tid_if_known,
 #endif
 
 /* ------------------------ mips 32/64 ------------------------- */
-#if defined(VGP_mips32_linux) || defined(VGP_mips64_linux)
+#if defined(VGP_mips32_linux) || defined(VGP_mips64_linux) || defined(VGP_mips64n32_linux)
 UInt VG_(get_StackTrace_wrk) ( ThreadId tid_if_known,
                                /*OUT*/Addr* ips, UInt max_n_ips,
                                /*OUT*/Addr* sps, /*OUT*/Addr* fps,
