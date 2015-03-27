@@ -57,8 +57,11 @@
 #elif defined(VGP_mips32_linux)
 #  include "vki/vki-scnums-mips32-linux.h"
 
-#elif defined(VGP_mips64_linux) || defined(VGP_mips64n32_linux)
+#elif defined(VGP_mips64_linux)
 #  include "vki/vki-scnums-mips64-linux.h"
+
+#elif defined(VGP_mips64n32_linux)
+#  include "vki/vki-scnums-mips64n32-linux.h"
 
 #elif defined(VGP_x86_darwin) || defined(VGP_amd64_darwin)
 #  include "vki/vki-scnums-darwin.h"
