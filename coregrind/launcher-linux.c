@@ -239,7 +239,14 @@ static const char *select_platform(const char *clientname)
             if (ehdr->e_machine == EM_MIPS &&
                 (ehdr->e_ident[EI_OSABI] == ELFOSABI_SYSV ||
                  ehdr->e_ident[EI_OSABI] == ELFOSABI_LINUX)) {
-               platform = "mips32-linux";
+#ifndef EF_MIPS_ARCH_64R2
+#define EF_MIPS_ARCH_64R2 0x80000000
+#endif
+               if (ehdr->e_flags & (EF_MIPS_ARCH_64 | EF_MIPS_ARCH_64R2)) {
+                  platform = "mips64-linux";
+               } else {
+                  platform = "mips32-linux";
+               }
             }
          }
 
