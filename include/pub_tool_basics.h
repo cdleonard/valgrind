@@ -280,11 +280,11 @@ static inline Bool sr_EQ ( SysRes sr1, SysRes sr2 ) {
 #undef VG_LITTLEENDIAN
 
 #if defined(VGA_x86) || defined(VGA_amd64) || defined (VGA_arm) \
-    || ((defined(VGA_mips32) || defined(VGA_mips64)) && defined (_MIPSEL)) \
+    || ((defined(VGA_mips32) || defined(VGA_mips64) || defined(VGA_mips64n32)) && defined (_MIPSEL)) \
     || defined(VGA_arm64)  || defined(VGA_ppc64le)
 #  define VG_LITTLEENDIAN 1
 #elif defined(VGA_ppc32) || defined(VGA_ppc64be) || defined(VGA_s390x) \
-      || ((defined(VGA_mips32) || defined(VGA_mips64)) && defined (_MIPSEB))
+      || ((defined(VGA_mips32) || defined(VGA_mips64) || defined(VGA_mips64n32)) && defined (_MIPSEB))
 #  define VG_BIGENDIAN 1
 #else
 #  error Unknown arch
@@ -323,7 +323,7 @@ static inline Bool sr_EQ ( SysRes sr1, SysRes sr2 ) {
 #elif defined(VGA_amd64) || defined(VGA_ppc32) \
       || defined(VGA_ppc64be) || defined(VGA_ppc64le) \
       || defined(VGA_arm) || defined(VGA_s390x) \
-      || defined(VGA_mips32) || defined(VGA_mips64) \
+      || defined(VGA_mips32) || defined(VGA_mips64) || defined(VGA_mips64n32) \
       || defined(VGA_arm64)
 #  define VG_REGPARM(n)            /* */
 #else

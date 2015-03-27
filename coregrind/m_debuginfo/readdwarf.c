@@ -1759,7 +1759,7 @@ void ML_(read_debuginfo_dwarf1) (
 #  define FP_REG         30
 #  define SP_REG         29
 #  define RA_REG_DEFAULT 31
-#elif defined(VGP_mips64_linux)
+#elif defined(VGP_mips64_linux) || defined(VGP_mips64n32_linux)
 #  define FP_REG         30
 #  define SP_REG         29
 #  define RA_REG_DEFAULT 31
@@ -2344,7 +2344,7 @@ static Bool summarise_context(/*OUT*/Addr* base,
 
    return True;
 
-#  elif defined(VGA_mips32) || defined(VGA_mips64)
+#  elif defined(VGA_mips32) || defined(VGA_mips64) || defined(VGA_mips64n32)
  
    /* --- entire tail of this fn specialised for mips --- */
  
@@ -2472,7 +2472,7 @@ static Int copy_convert_CfiExpr_tree ( XArray*        dstxa,
             return ML_(CfiExpr_CfiReg)( dstxa, Creg_S390_FP );
          if (dwreg == srcuc->ra_reg)
             return ML_(CfiExpr_CfiReg)( dstxa, Creg_S390_IA );
-#        elif defined(VGA_mips32) || defined(VGA_mips64)
+#        elif defined(VGA_mips32) || defined(VGA_mips64) || defined(VGA_mips64n32)
          if (dwreg == SP_REG)
             return ML_(CfiExpr_CfiReg)( dstxa, Creg_IA_SP );
          if (dwreg == FP_REG)

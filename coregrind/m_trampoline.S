@@ -1275,7 +1275,7 @@ VG_(trampoline_stuff_end):
 
 /*---------------------- mips64-linux ----------------------*/
 #else
-#if defined(VGP_mips64_linux)
+#if defined(VGP_mips64_linux) || defined(VGP_mips64n32_linux)
 
 #       define UD2_16     trap ; trap ; trap; trap
 #       define UD2_64     UD2_16   ; UD2_16   ; UD2_16   ; UD2_16

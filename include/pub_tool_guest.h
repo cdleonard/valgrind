@@ -61,7 +61,7 @@
 #elif defined(VGA_mips32)
 #  include "libvex_guest_mips32.h"
    typedef VexGuestMIPS32State VexGuestArchState;
-#elif defined(VGA_mips64)
+#elif defined(VGA_mips64) || defined(VGA_mips64n32)
 #  include "libvex_guest_mips64.h"
    typedef VexGuestMIPS64State VexGuestArchState;
 #else

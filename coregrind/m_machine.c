@@ -118,7 +118,7 @@ void VG_(get_UnwindStartRegs) ( /*OUT*/UnwindStartRegs* regs,
       = VG_(threads)[tid].arch.vex.guest_r31;
    regs->misc.MIPS32.r28
       = VG_(threads)[tid].arch.vex.guest_r28;
-#  elif defined(VGA_mips64)
+#  elif defined(VGA_mips64) || defined(VGA_mips64n32)
    regs->r_pc = VG_(threads)[tid].arch.vex.guest_PC;
    regs->r_sp = VG_(threads)[tid].arch.vex.guest_r29;
    regs->misc.MIPS64.r30
@@ -279,7 +279,7 @@ static void apply_to_GPs_of_tid(ThreadId tid, void (*f)(ThreadId,
    (*f)(tid, "r13", vex->guest_r13);
    (*f)(tid, "r14", vex->guest_r14);
    (*f)(tid, "r15", vex->guest_r15);
-#elif defined(VGA_mips32) || defined(VGA_mips64)
+#elif defined(VGA_mips32) || defined(VGA_mips64) || defined(VGA_mips64n32)
    (*f)(tid, "r0" , vex->guest_r0 );
    (*f)(tid, "r1" , vex->guest_r1 );
    (*f)(tid, "r2" , vex->guest_r2 );
@@ -635,7 +635,7 @@ static UInt VG_(get_machine_model)(void)
 
 #endif /* VGA_s390x */
 
-#if defined(VGA_mips32) || defined(VGA_mips64)
+#if defined(VGA_mips32) || defined(VGA_mips64) || defined(VGA_mips64n32)
 
 /* Read /proc/cpuinfo and return the machine model. */
 static UInt VG_(get_machine_model)(void)
@@ -1593,7 +1593,7 @@ Bool VG_(machine_get_hwcaps)( void )
      return True;
    }
 
-#elif defined(VGA_mips64)
+#elif defined(VGA_mips64) || defined(VGA_mips64n32)
    {
      va = VexArchMIPS64;
      UInt model = VG_(get_machine_model)();
@@ -1745,7 +1745,7 @@ Int VG_(machine_get_size_of_largest_guest_register) ( void )
       it? */
    return 8;
 
-#  elif defined(VGA_mips64)
+#  elif defined(VGA_mips64) || defined(VGA_mips64n32)
    return 8;
 
 #  else
@@ -1762,7 +1762,8 @@ void* VG_(fnptr_to_fnentry)( void* f )
       || defined(VGP_arm_linux) || defined(VGO_darwin)          \
       || defined(VGP_ppc32_linux) || defined(VGP_ppc64le_linux) \
       || defined(VGP_s390x_linux) || defined(VGP_mips32_linux) \
-      || defined(VGP_mips64_linux) || defined(VGP_arm64_linux)
+      || defined(VGP_mips64_linux) || defined(VGP_mips64n32_linux) \
+      || defined(VGP_arm64_linux)
    return f;
 #  elif defined(VGP_ppc64be_linux)
    /* ppc64-linux uses the AIX scheme, in which f is a pointer to a

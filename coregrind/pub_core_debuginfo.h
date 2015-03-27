@@ -126,7 +126,7 @@ typedef
 typedef
    struct { Addr ia; Addr sp; Addr fp; Addr lr;}
    D3UnwindRegs;
-#elif defined(VGA_mips32) || defined(VGA_mips64)
+#elif defined(VGA_mips32) || defined(VGA_mips64) || defined(VGA_mips64n32)
 typedef
    struct { Addr pc; Addr sp; Addr fp; Addr ra; }
    D3UnwindRegs;

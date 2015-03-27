@@ -200,7 +200,7 @@
         (srP)->misc.MIPS32.r31 = (ULong)ra;               \
         (srP)->misc.MIPS32.r28 = (ULong)gp;               \
       }
-#elif defined(VGP_mips64_linux)
+#elif defined(VGP_mips64_linux) || defined(VGP_mips64n32_linux)
 #  define GET_STARTREGS(srP)                              \
       { ULong pc, sp, fp, ra, gp;                          \
       asm("move $8, $31;"             /* t0 = ra */       \

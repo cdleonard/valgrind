@@ -549,7 +549,7 @@ typedef struct SigQueue {
         (srP)->misc.MIPS32.r28 = (uc)->uc_mcontext.sc_regs[28]; \
       }
 
-#elif defined(VGP_mips64_linux)
+#elif defined(VGP_mips64_linux) || defined(VGP_mips64n32_linux)
 #  define VG_UCONTEXT_INSTR_PTR(uc)       (((uc)->uc_mcontext.sc_pc))
 #  define VG_UCONTEXT_STACK_PTR(uc)       ((uc)->uc_mcontext.sc_regs[29])
 #  define VG_UCONTEXT_FRAME_PTR(uc)       ((uc)->uc_mcontext.sc_regs[30])
@@ -934,7 +934,7 @@ extern void my_sigreturn(void);
    "	syscall\n" \
    ".previous\n"
 
-#elif defined(VGP_mips64_linux)
+#elif defined(VGP_mips64_linux) || defined(VGP_mips64n32_linux)
 #  define _MY_SIGRETURN(name) \
    ".text\n" \
    "my_sigreturn:\n" \

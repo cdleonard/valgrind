@@ -53,7 +53,7 @@
 #define STACK_POINTER_OFFSET OFFSET_s390x_r15
 #elif defined(VGA_mips32)
 #define STACK_POINTER_OFFSET OFFSET_mips32_r29
-#elif defined(VGA_mips64)
+#elif defined(VGA_mips64) || defined(VGA_mips64n32)
 #define STACK_POINTER_OFFSET OFFSET_mips64_r29
 #else
 #error Unknown architecture.

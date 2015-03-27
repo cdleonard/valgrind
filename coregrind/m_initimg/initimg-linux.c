@@ -1107,7 +1107,7 @@ void VG_(ii_finalise_image)( IIFinaliseImageInfo iifii )
    arch->vex.guest_PC = iifii.initial_client_IP;
    arch->vex.guest_r31 = iifii.initial_client_SP;
 
-#   elif defined(VGP_mips64_linux)
+#   elif defined(VGP_mips64_linux) || defined(VGP_mips64n32_linux)
    vg_assert(0 == sizeof(VexGuestMIPS64State) % 16);
    /* Zero out the initial state, and set up the simulated FPU in a
       sane way. */

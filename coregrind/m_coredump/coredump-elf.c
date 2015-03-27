@@ -410,7 +410,7 @@ static void fill_prstatus(const ThreadState *tst,
    regs->MIPS_hi   = arch->vex.guest_HI;
    regs->MIPS_lo   = arch->vex.guest_LO;
 
-#elif defined(VGP_mips64_linux)
+#elif defined(VGP_mips64_linux) || defined(VGP_mips64n32_linux)
 #  define DO(n)  regs->MIPS_r##n = arch->vex.guest_r##n
    DO(0);  DO(1);  DO(2);  DO(3);  DO(4);  DO(5);  DO(6);  DO(7);
    DO(8);  DO(9);  DO(10); DO(11); DO(12); DO(13); DO(14); DO(15);
@@ -510,7 +510,7 @@ static void fill_fpu(const ThreadState *tst, vki_elf_fpregset_t *fpu)
    DO(16); DO(17); DO(18); DO(19); DO(20); DO(21); DO(22); DO(23);
    DO(24); DO(25); DO(26); DO(27); DO(28); DO(29); DO(30); DO(31);
 #  undef DO
-#elif defined(VGP_mips32_linux) || defined(VGP_mips64_linux)
+#elif defined(VGP_mips32_linux) || defined(VGP_mips64_linux) || defined(VGP_mips64n32_linux)
 #  define DO(n)  (*fpu)[n] = *(double*)(&arch->vex.guest_f##n)
    DO(0);  DO(1);  DO(2);  DO(3);  DO(4);  DO(5);  DO(6);  DO(7);
    DO(8);  DO(9);  DO(10); DO(11); DO(12); DO(13); DO(14); DO(15);
