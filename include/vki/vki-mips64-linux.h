@@ -403,7 +403,7 @@ struct vki_stat {
         unsigned int    st_dev;
         unsigned int    st_pad0[3];     /* Reserved for st_dev expansion  */
 
-        unsigned long   st_ino;
+        __vki_u64       st_ino;
 
         int             st_mode;
         unsigned int    st_nlink;
@@ -414,7 +414,7 @@ struct vki_stat {
         unsigned int    st_rdev;
         unsigned int    st_pad1[3];     /* Reserved for st_rdev expansion  */
 
-        long            st_size;
+        __vki_u64       st_size;
 
         /*
          * Actually this should be timestruc_t st_atime, st_mtime and st_ctime
