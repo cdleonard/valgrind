@@ -726,7 +726,7 @@ asm(
 ".end do_syscall_WRK\n"
 );
 
-#elif defined(VGP_mips64_linux)
+#elif defined(VGP_mips64_linux) || defined(VGP_mips64n32_linux)
 extern UWord do_syscall_WRK ( UWord a1, UWord a2, UWord a3, UWord a4, UWord a5,
                               UWord a6, UWord syscall_no, ULong* V1_val );
 asm (
@@ -885,7 +885,7 @@ SysRes VG_(do_syscall) ( UWord sysno, UWord a1, UWord a2, UWord a3,
    (void) do_syscall_WRK(a1,a2,a3,a4,a5,a6, sysno,&err,&valHi,&valLo);
    return VG_(mk_SysRes_mips32_linux)( valLo, valHi, (ULong)err );
 
-#elif defined(VGP_mips64_linux)
+#elif defined(VGP_mips64_linux) || defined(VGP_mips64n32_linux)
    ULong v1_a3[2];
    v1_a3[0] = 0xFF00;
    v1_a3[1] = 0xFF00;

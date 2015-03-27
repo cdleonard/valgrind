@@ -95,7 +95,7 @@
 #  include "vki-posixtypes-s390x-linux.h"
 #elif defined(VGA_mips32)
 #  include "vki-posixtypes-mips32-linux.h"
-#elif defined(VGA_mips64)
+#elif defined(VGA_mips64) || defined(VGA_mips64n32)
 #  include "vki-posixtypes-mips64-linux.h"
 #elif defined(VGA_tilegx)
 #  include "vki-posixtypes-tilegx-linux.h"
@@ -223,7 +223,7 @@ typedef unsigned int	        vki_uint;
 #  include "vki-s390x-linux.h"
 #elif defined(VGA_mips32)
 #  include "vki-mips32-linux.h"
-#elif defined(VGA_mips64)
+#elif defined(VGA_mips64) || defined(VGA_mips64n32)
 #  include "vki-mips64-linux.h"
 #elif defined(VGA_tilegx)
 #  include "vki-tilegx-linux.h"

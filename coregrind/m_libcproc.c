@@ -552,7 +552,8 @@ Int VG_(getgroups)( Int size, UInt* list )
    if (size < 0) return -1;
 
 #  if defined(VGP_x86_linux) || defined(VGP_ppc32_linux) \
-      || defined(VGP_mips64_linux) || defined(VGP_tilegx_linux)
+      || defined(VGP_mips64_linux) || defined(VGP_mips64n32_linux) \
+      || defined(VGP_tilegx_linux)
    Int    i;
    SysRes sres;
    UShort list16[size];

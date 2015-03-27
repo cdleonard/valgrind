@@ -725,8 +725,8 @@ SysRes VG_(pread) ( Int fd, void* buf, Int count, OffT offset )
    return res;
 #  elif defined(VGP_amd64_linux) || defined(VGP_s390x_linux) \
       || defined(VGP_ppc64be_linux)  || defined(VGP_ppc64le_linux) \
-      || defined(VGP_mips64_linux) \
-  || defined(VGP_arm64_linux) || defined(VGP_tilegx_linux)
+      || defined(VGP_mips64_linux) || defined(VGP_mips64n32_linux) \
+      || defined(VGP_arm64_linux) || defined(VGP_tilegx_linux)
    res = VG_(do_syscall4)(__NR_pread64, fd, (UWord)buf, count, offset);
    return res;
 #  elif defined(VGP_amd64_darwin)
@@ -972,7 +972,7 @@ Int VG_(socket) ( Int domain, Int type, Int protocol )
    return sr_isError(res) ? -1 : sr_Res(res);
 
 #  elif defined(VGP_amd64_linux) || defined(VGP_arm_linux) \
-        || defined(VGP_mips32_linux) || defined(VGP_mips64_linux) \
+        || defined(VGP_mips32_linux) || defined(VGP_mips64_linux) || defined(VGP_mips64n32_linux) \
         || defined(VGP_arm64_linux) || defined(VGP_tilegx_linux)
    SysRes res;
    res = VG_(do_syscall3)(__NR_socket, domain, type, protocol );
@@ -1013,7 +1013,7 @@ Int my_connect ( Int sockfd, struct vki_sockaddr_in* serv_addr, Int addrlen )
    return sr_isError(res) ? -1 : sr_Res(res);
 
 #  elif defined(VGP_amd64_linux) || defined(VGP_arm_linux) \
-        || defined(VGP_mips32_linux) || defined(VGP_mips64_linux) \
+        || defined(VGP_mips32_linux) || defined(VGP_mips64_linux) || defined(VGP_mips64n32_linux) \
         || defined(VGP_arm64_linux) || defined(VGP_tilegx_linux)
    SysRes res;
    res = VG_(do_syscall3)(__NR_connect, sockfd, (UWord)serv_addr, addrlen);
@@ -1054,7 +1054,7 @@ Int VG_(write_socket)( Int sd, const void *msg, Int count )
    return sr_isError(res) ? -1 : sr_Res(res);
 
 #  elif defined(VGP_amd64_linux) || defined(VGP_arm_linux) \
-        || defined(VGP_mips32_linux) || defined(VGP_mips64_linux) \
+        || defined(VGP_mips32_linux) || defined(VGP_mips64_linux) || defined(VGP_mips64n32_linux) \
         || defined(VGP_arm64_linux) || defined(VGP_tilegx_linux)
    SysRes res;
    res = VG_(do_syscall6)(__NR_sendto, sd, (UWord)msg, 
@@ -1086,7 +1086,8 @@ Int VG_(getsockname) ( Int sd, struct vki_sockaddr *name, Int *namelen)
    return sr_isError(res) ? -1 : sr_Res(res);
 
 #  elif defined(VGP_amd64_linux) || defined(VGP_arm_linux) \
-        || defined(VGP_mips64_linux) || defined(VGP_arm64_linux) \
+        || defined(VGP_mips64_linux) || defined(VGP_mips64n32_linux) \
+        || defined(VGP_arm64_linux) \
         || defined(VGP_tilegx_linux)
    SysRes res;
    res = VG_(do_syscall3)( __NR_getsockname,
@@ -1119,7 +1120,8 @@ Int VG_(getpeername) ( Int sd, struct vki_sockaddr *name, Int *namelen)
    return sr_isError(res) ? -1 : sr_Res(res);
 
 #  elif defined(VGP_amd64_linux) || defined(VGP_arm_linux) \
-        || defined(VGP_mips64_linux) || defined(VGP_arm64_linux) \
+        || defined(VGP_mips64_linux) || defined(VGP_mips64n32_linux) \
+        || defined(VGP_arm64_linux) \
         || defined(VGP_tilegx_linux)
    SysRes res;
    res = VG_(do_syscall3)( __NR_getpeername,
@@ -1154,7 +1156,7 @@ Int VG_(getsockopt) ( Int sd, Int level, Int optname, void *optval,
    return sr_isError(res) ? -1 : sr_Res(res);
 
 #  elif defined(VGP_amd64_linux) || defined(VGP_arm_linux) \
-        || defined(VGP_mips32_linux) || defined(VGP_mips64_linux) \
+        || defined(VGP_mips32_linux) || defined(VGP_mips64_linux) || defined(VGP_mips64n32_linux) \
         || defined(VGP_arm64_linux) || defined(VGP_tilegx_linux)
    SysRes res;
    res = VG_(do_syscall5)( __NR_getsockopt,
@@ -1192,7 +1194,7 @@ Int VG_(setsockopt) ( Int sd, Int level, Int optname, void *optval,
    return sr_isError(res) ? -1 : sr_Res(res);
 
 #  elif defined(VGP_amd64_linux) || defined(VGP_arm_linux) \
-        || defined(VGP_mips32_linux) || defined(VGP_mips64_linux) \
+        || defined(VGP_mips32_linux) || defined(VGP_mips64_linux) || defined(VGP_mips64n32_linux) \
         || defined(VGP_arm64_linux) || defined(VGP_tilegx_linux)
    SysRes res;
    res = VG_(do_syscall5)( __NR_setsockopt,

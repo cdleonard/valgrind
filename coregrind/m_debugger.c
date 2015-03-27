@@ -349,7 +349,7 @@ static Int ptrace_setregs(Int pid, const VexGuestArchState* vex)
 
    return VG_(ptrace)(VKI_PTRACE_POKEUSR_AREA, pid,  &pa, NULL);
 
-#elif defined(VGP_mips32_linux) || defined(VGP_mips64_linux)
+#elif defined(VGP_mips32_linux) || defined(VGP_mips64_linux) || defined(VGP_mips64n32_linux)
    struct vki_user_regs_struct regs;
    VG_(memset)(&regs, 0, sizeof(regs));
    regs.MIPS_r0     = vex->guest_r0;

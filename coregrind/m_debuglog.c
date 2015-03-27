@@ -471,7 +471,7 @@ static UInt local_sys_getpid ( void )
    return __res;
 }
 
-#elif defined(VGP_mips64_linux)
+#elif defined(VGP_mips64_linux) || defined(VGP_mips64n32_linux)
 
 static UInt local_sys_write_stderr ( const HChar* buf, Int n )
 {

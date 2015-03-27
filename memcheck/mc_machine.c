@@ -1157,7 +1157,7 @@ static Int get_otrack_shadow_offset_wrk ( Int offset, Int szB )
 
    /* --------------------- mips64 --------------------- */
 
-#  elif defined(VGA_mips64)
+#  elif defined(VGA_mips64) || defined(VGA_mips64n32)
 
 #  define GOF(_fieldname) \
       (offsetof(VexGuestMIPS64State,guest_##_fieldname))
@@ -1375,7 +1375,7 @@ IRType MC_(get_otrack_reg_array_equiv_int_type) ( IRRegArray* arr )
    tl_assert(0);
 
    /* --------------------- mips64 --------------------- */
-#  elif defined(VGA_mips64)
+#  elif defined(VGA_mips64) || defined(VGA_mips64n32)
    VG_(printf)("get_reg_array_equiv_int_type(mips64): unhandled: ");
    ppIRRegArray(arr);
    VG_(printf)("\n");
