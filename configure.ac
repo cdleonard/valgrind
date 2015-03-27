@@ -1638,6 +1638,26 @@ CFLAGS=$safe_CFLAGS
 AC_SUBST(FLAG_OCTEON2)
 
 
+# does this compiler support -mabi=n32 ?
+AC_MSG_CHECKING([if gcc accepts -mabi=n32])
+
+safe_CFLAGS=$CFLAGS
+CFLAGS="-mabi=n32"
+
+AC_COMPILE_IFELSE([AC_LANG_PROGRAM([[]], [[
+  return 0;
+]])], [
+FLAG_MABIN32="-mabi=n32"
+AC_MSG_RESULT([yes])
+], [
+FLAG_MABIN32=""
+AC_MSG_RESULT([no])
+])
+CFLAGS=$safe_CFLAGS
+
+AC_SUBST(FLAG_MABIN32)
+
+
 # does this compiler support -mmmx ?
 AC_MSG_CHECKING([if gcc accepts -mmmx])
 
