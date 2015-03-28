@@ -81,7 +81,11 @@ if (($arch eq 'mips') || ($arch eq 'mipsel')
    $extra_args = "-static -Wl,--section-start=.reginfo=$ala";
 } elsif (($arch eq 'mips64') || ($arch eq 'mips64el') ||
          ($arch eq 'mipsisa64el')) {
-   $extra_args = "-static -Wl,--section-start=.MIPS.options=$ala";
+   if (grep { $_ eq "-mabi=n32" } @ARGV) {
+     $extra_args = "-static -Wl,--section-start=.reginfo=$ala";
+   } else {
+     $extra_args = "-static -Wl,--section-start=.MIPS.options=$ala";
+   }
 } else {
    $extra_args = "-static -Wl,@FLAG_T_TEXT@=$ala";
 }
