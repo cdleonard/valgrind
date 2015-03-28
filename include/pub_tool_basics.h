@@ -153,7 +153,12 @@ typedef UInt ThreadId;
 #if defined(VGO_linux)
 typedef
    struct {
+#if defined(VGA_mips64n32)
+      // mips n32 has 64bit registers
+      ULong _val;
+#else
       UWord _val;
+#endif
       UWord _valEx;   // only used on mips-linux
       Bool  _isError;
    }
@@ -186,9 +191,15 @@ typedef
 static inline Bool sr_isError ( SysRes sr ) {
    return sr._isError;
 }
+#if defined(VGA_mips64n32)
+static inline ULong sr_Res ( SysRes sr ) {
+   return sr._isError ? 0 : sr._val;
+}
+#else
 static inline UWord sr_Res ( SysRes sr ) {
    return sr._isError ? 0 : sr._val;
 }
+#endif
 static inline UWord sr_ResEx ( SysRes sr ) {
    return sr._isError ? 0 : sr._valEx;
 }
