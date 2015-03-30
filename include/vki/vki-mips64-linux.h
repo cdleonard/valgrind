@@ -908,7 +908,13 @@ typedef union vki_sigval {
 } vki_sigval_t;
 
 #ifndef __VKI_ARCH_SI_PREAMBLE_SIZE
+#if defined(VGA_mips64)
 #define __VKI_ARCH_SI_PREAMBLE_SIZE (4 * sizeof(int))
+#elif defined(VGA_mips64n32)
+#define __VKI_ARCH_SI_PREAMBLE_SIZE (3 * sizeof(int))
+#else
+#error unknown mips64 variant
+#endif
 #endif
 
 #define VKI_SI_MAX_SIZE 128
