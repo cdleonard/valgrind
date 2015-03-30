@@ -73,7 +73,7 @@ static void pc_pre_clo_init(void)
    VG_(printf)("SGCheck doesn't work on ARM yet, sorry.\n");
    VG_(exit)(1);
 #endif
-#if defined(VGA_mips32) || defined(VGA_mips64)
+#if defined(VGA_mips32) || defined(VGA_mips64) || defined(VGA_mips64n32)
    VG_(printf)("SGCheck doesn't work on MIPS yet, sorry.\n");
    VG_(exit)(1);
 #endif

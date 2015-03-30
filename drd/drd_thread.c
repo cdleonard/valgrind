@@ -606,7 +606,7 @@ Bool DRD_(thread_get_joinable)(const DrdThreadId tid)
 }
 
 /** Store the thread mode: joinable or detached. */
-#if defined(VGP_mips32_linux) || defined(VGP_mips64_linux)
+#if defined(VGP_mips32_linux) || defined(VGP_mips64_linux) || defined(VGP_mips64n32_linux)
  /* There is a cse related issue in gcc for MIPS. Optimization level
     has to be lowered, so cse related optimizations are not
     included.*/

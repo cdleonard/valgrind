@@ -803,7 +803,7 @@ static void do_pre_run_checks ( volatile ThreadState* tst )
    /* no special requirements */
 #  endif
 
-#  if defined(VGA_mips32) || defined(VGA_mips64)
+#  if defined(VGA_mips32) || defined(VGA_mips64) || defined(VGA_mips64n32)
    /* no special requirements */
 #  endif
 }

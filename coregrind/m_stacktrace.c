@@ -1262,9 +1262,11 @@ UInt VG_(get_StackTrace_wrk) ( ThreadId tid_if_known,
 #if defined(VGP_mips32_linux)
    uregs.fp = startRegs->misc.MIPS32.r30;
    uregs.ra = startRegs->misc.MIPS32.r31;
-#elif defined(VGP_mips64_linux)
+#elif defined(VGP_mips64_linux) || defined(VGP_mips64n32_linux)
    uregs.fp = startRegs->misc.MIPS64.r30;
    uregs.ra = startRegs->misc.MIPS64.r31;
+#else
+   #error unknown mips variant
 #endif
 
    /* Snaffle IPs from the client's stack into ips[0 .. max_n_ips-1],
