@@ -2039,7 +2039,7 @@ void VG_(synth_sigtrap)(ThreadId tid)
 void VG_(synth_sigfpe)(ThreadId tid, UInt code)
 {
 // Only tested on mips32 and mips64
-#if !defined(VGA_mips32) && !defined(VGA_mips64)
+#if !defined(VGA_mips32) && !defined(VGA_mips64) && !defined(VGA_mips64n32)
    vg_assert(0);
 #else
    vki_siginfo_t info;

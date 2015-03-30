@@ -16,7 +16,7 @@
 #define UNRECOGNISED_FEATURE  2
 #define USAGE_ERROR           3
 
-#if defined(VGA_mips32) || defined(VGA_mips64)
+#if defined(VGA_mips32) || defined(VGA_mips64) || defined(VGA_mips64n32)
 static int mipsCPUInfo(const char *search_string) {
    const char *file_name = "/proc/cpuinfo";
    /* Simple detection of MIPS DSP ASE at runtime for Linux.

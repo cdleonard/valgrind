@@ -916,7 +916,7 @@ void VG_(invalidate_icache) ( void *ptr, SizeT nbytes )
      : "cc", "memory"
    );
 
-#  elif defined(VGA_mips32) || defined(VGA_mips64)
+#  elif defined(VGA_mips32) || defined(VGA_mips64) || defined(VGA_mips64n32)
    SysRes sres = VG_(do_syscall3)(__NR_cacheflush, (UWord) ptr,
                                  (UWord) nbytes, (UWord) 3);
    vg_assert( sres._isError == 0 );

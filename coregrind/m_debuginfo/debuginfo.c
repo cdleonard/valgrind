@@ -2815,7 +2815,7 @@ Addr ML_(get_CFA) ( Addr ip, Addr sp, Addr fp,
      return compute_cfa(&uregs,
                         min_accessible,  max_accessible, ce->di, ce->cfsi_m);
    }
-#elif defined(VGA_mips32) || defined(VGA_mips64) || defined(VGA_tilegx)
+#elif defined(VGA_mips32) || defined(VGA_mips64) || defined(VGA_mips64n32) || defined(VGA_tilegx)
    { D3UnwindRegs uregs;
      uregs.pc = ip;
      uregs.sp = sp;

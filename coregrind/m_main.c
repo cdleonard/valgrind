@@ -2752,7 +2752,7 @@ static void final_tidyup(ThreadId tid)
    VG_(threads)[tid].arch.vex.guest_GPR12 = __libc_freeres_wrapper;
 #  endif
    /* mips-linux note: we need to set t9 */
-#  if defined(VGP_mips32_linux) || defined(VGP_mips64_linux)
+#  if defined(VGP_mips32_linux) || defined(VGP_mips64_linux) || defined(VGP_mips64n32_linux)
    VG_(threads)[tid].arch.vex.guest_r25 = __libc_freeres_wrapper;
 #  endif
 

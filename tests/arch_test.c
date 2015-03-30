@@ -72,7 +72,7 @@ static Bool go(char* arch)
 #elif defined(VGP_mips32_linux)
    if ( 0 == strcmp( arch, "mips32" ) ) return True;
 
-#elif defined(VGP_mips64_linux)
+#elif defined(VGP_mips64_linux) || defined(VGP_mips64n32_linux)
    if ( 0 == strcmp( arch, "mips64" ) ) return True;
 
 #elif defined(VGP_tilegx_linux)

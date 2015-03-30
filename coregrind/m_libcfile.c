@@ -228,7 +228,7 @@ Int VG_(write) ( Int fd, const void* buf, Int count)
 
 Int VG_(pipe) ( Int fd[2] )
 {
-#  if defined(VGP_mips32_linux) || defined(VGP_mips64_linux)
+#  if defined(VGP_mips32_linux) || defined(VGP_mips64_linux) || defined(VGP_mips64n32_linux)
    /* __NR_pipe has a strange return convention on mips32-linux. */
    SysRes res = VG_(do_syscall1)(__NR_pipe, (UWord)fd);
    if (!sr_isError(res)) {
