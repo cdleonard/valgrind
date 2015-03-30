@@ -252,7 +252,7 @@ UWord do_acasW ( UWord* addr, UWord expected, UWord nyu )
    return success;
 }
 
-#elif defined(VGA_mips64)
+#elif defined(VGA_mips64) || defined(VGA_mips64n32)
 
 // mips64
 /* return 1 if success, 0 if failure */

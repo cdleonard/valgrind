@@ -869,7 +869,7 @@ Bool invoker_invoke_gdbserver (pid_t pid)
 #elif defined(VGA_mips32)
    long long *p = (long long *)user_mod.regs;
    sp = p[29];
-#elif defined(VGA_mips64)
+#elif defined(VGA_mips64) || defined(VGA_mips64n32)
    sp = user_mod.regs[29];
 #else
    I_die_here : (sp) architecture missing in vgdb-invoker-ptrace.c
@@ -956,7 +956,7 @@ Bool invoker_invoke_gdbserver (pid_t pid)
       /* make stack space for args */
       p[29] = sp - 32;
 
-#elif defined(VGA_mips64)
+#elif defined(VGA_mips64) || defined(VGA_mips64n32)
       assert(0); // cannot vgdb a 32 bits executable with a 64 bits exe
 #else
       I_die_here : architecture missing in vgdb-invoker-ptrace.c
@@ -1056,7 +1056,7 @@ Bool invoker_invoke_gdbserver (pid_t pid)
       user_mod.regs.psw.addr = shared64->invoke_gdbserver;
 #elif defined(VGA_mips32)
       assert(0); // cannot vgdb a 64 bits executable with a 32 bits exe
-#elif defined(VGA_mips64)
+#elif defined(VGA_mips64) || defined(VGA_mips64n32)
       /* put check arg in register 4 */
       user_mod.regs[4] = check;
       /* put NULL return address in ra */

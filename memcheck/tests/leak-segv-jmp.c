@@ -135,7 +135,7 @@ UWord do_syscall_WRK (
    return (UWord) (__svcres);
 }
 
-#elif defined(VGP_mips64_linux)
+#elif defined(VGP_mips64_linux) || defined(VGP_mips64n32_linux)
 extern UWord do_syscall_WRK (
           UWord syscall_no,
           UWord a1, UWord a2, UWord a3,

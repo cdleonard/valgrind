@@ -189,7 +189,7 @@ __attribute__((noinline)) void atomic_add_8bit ( char* p, int n )
       );
    } while (block[2] != 1);
 #endif
-#elif defined(VGA_mips64)
+#elif defined(VGA_mips64) || defined(VGA_mips64n32)
    /* We rely on the fact that p is 4-aligned. Otherwise 'll' may throw an
       exception that can cause this function to fail. */
 #if defined (_MIPSEL)
@@ -405,7 +405,7 @@ __attribute__((noinline)) void atomic_add_16bit ( short* p, int n )
       );
    } while (block[2] != 1);
 #endif
-#elif defined(VGA_mips64)
+#elif defined(VGA_mips64) || defined(VGA_mips64n32)
    /* We rely on the fact that p is 4-aligned. Otherwise 'll' may throw an
       exception that can cause this function to fail. */
 #if defined (_MIPSEL)
@@ -587,7 +587,7 @@ __attribute__((noinline)) void atomic_add_32bit ( int* p, int n )
          : /*trash*/ "memory", "t0", "t1", "t2", "t3"
       );
    } while (block[2] != 1);
-#elif defined(VGA_mips64)
+#elif defined(VGA_mips64) || defined(VGA_mips64n32)
    unsigned long block[3]
       = { (unsigned long)p, (unsigned long)n, 0x0ULL };
    do {
@@ -688,7 +688,7 @@ __attribute__((noinline)) void atomic_add_64bit ( long long int* p, int n )
       : "+m" (*p)
       : "d" (n)
       : "cc", "memory", "0", "1");
-#elif defined(VGA_mips64)
+#elif defined(VGA_mips64) || defined(VGA_mips64n32)
    unsigned long block[3]
       = { (unsigned long)p, (unsigned long)n, 0x0ULL };
    do {
