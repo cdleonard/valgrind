@@ -111,8 +111,15 @@ postamble:
 
     /* Restore $4 from stack; holds address of two_words */
     ld $4, 160($29)
+#if defined(VGP_mips64_linux)
     sd  $2, 0($4)         /* Store $2 to two_words[0] */
     sd  $3, 8($4)         /* Store $3 to two_words[1] */
+#elif defined(VGP_mips64n32_linux)
+    sw  $2, 0($4)         /* Store $2 to two_words[0] */
+    sw  $3, 4($4)         /* Store $3 to two_words[1] */
+#else
+#error bad mips64 variant
+#endif
 
     /* Restore callee-saved registers... */
 
