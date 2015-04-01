@@ -689,11 +689,18 @@ case "$ARCH_MAX-$VGCONF_OS" in
      mips64-linux)
         VGCONF_ARCH_PRI="mips64"
         VGCONF_PLATFORM_PRI_CAPS="MIPS64_LINUX"
-        VGCONF_PLATFORM_SEC_CAPS=""
         valt_load_address_pri_norml="0x38000000"
         valt_load_address_pri_inner="0x28000000"
-        valt_load_address_sec_norml="0xUNSET"
-        valt_load_address_sec_inner="0xUNSET"
+        if test x$vg_cv_only64bit = xyes; then
+           VGCONF_PLATFORM_SEC_CAPS=""
+           valt_load_address_sec_norml="0xUNSET"
+           valt_load_address_sec_inner="0xUNSET"
+        else
+           VGCONF_ARCH_SEC="mips64n32"
+           VGCONF_PLATFORM_SEC_CAPS="MIPS64N32_LINUX"
+           valt_load_address_sec_norml="0x38000000"
+           valt_load_address_sec_inner="0x28000000"
+        fi
         AC_MSG_RESULT([ok (${ARCH_MAX}-${VGCONF_OS})])
         ;;
      tilegx-linux)
