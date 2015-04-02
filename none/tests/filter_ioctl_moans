@@ -9,4 +9,4 @@ $dir/../../tests/filter_stderr_basic |
 sed 's/0x[13]/0x./' |
 
 # Remove "Nulgrind, ..." line and the following copyright line.
-sed "/^Nulgrind, the minimal Valgrind tool/ , /./ d"
+sed "/^Nulgrind, the minimal Valgrind tool/,/./ d"
