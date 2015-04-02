@@ -8,7 +8,7 @@ $dir/../../tests/filter_stderr_basic                    |
 $dir/../../tests/filter_addresses                       |
 
 # Remove "Memcheck, ..." line and the following copyright line.
-sed "/^Memcheck, a memory error detector/ , /./ d" |
+sed "/^Memcheck, a memory error detector/,/./ d" |
 
 # Replace exit_group() with exit(), because you can get either on Linux
 # depending on the system.
