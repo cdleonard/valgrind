@@ -154,6 +154,8 @@ extern UInt  VG_(mips32_linux_REDIR_FOR_strlen)( void* );
 #if defined(VGP_mips64_linux) || defined(VGP_mips64n32_linux)
 extern Addr  VG_(mips64_linux_SUBST_FOR_rt_sigreturn);
 extern UInt  VG_(mips64_linux_REDIR_FOR_strlen)( void* );
+extern UInt  VG_(mips64_linux_REDIR_FOR_strcmp)( void*, void* );
+extern void* VG_(mips64_linux_REDIR_FOR_strchr)( void*, Int );
 #endif
 
 #endif   // __PUB_CORE_TRAMPOLINE_H

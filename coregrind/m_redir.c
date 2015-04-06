@@ -1480,13 +1480,34 @@ void VG_(redir_initialise) ( void )
       );
    }
 
-#  elif defined(VGP_mips64_linux) || defined(VGP_mips64n32_linux)
+#  elif defined(VGP_mips64_linux)
    if (0==VG_(strcmp)("Memcheck", VG_(details).name)) {
 
       /* this is mandatory - can't sanely continue without it */
       add_hardwired_spec(
          "ld.so.3", "strlen",
          (Addr)&VG_(mips64_linux_REDIR_FOR_strlen),
+         complain_about_stripped_glibc_ldso
+      );
+   }
+
+#  elif defined(VGP_mips64n32_linux)
+   if (0==VG_(strcmp)("Memcheck", VG_(details).name)) {
+
+      /* this is mandatory - can't sanely continue without it */
+      add_hardwired_spec(
+         "ld.so.1", "strlen",
+         (Addr)&VG_(mips64_linux_REDIR_FOR_strlen),
+         complain_about_stripped_glibc_ldso
+      );
+      add_hardwired_spec(
+         "ld.so.1", "strcmp",
+         (Addr)&VG_(mips64_linux_REDIR_FOR_strcmp),
+         complain_about_stripped_glibc_ldso
+      );
+      add_hardwired_spec(
+         "ld.so.1", "index",
+         (Addr)&VG_(mips64_linux_REDIR_FOR_strchr),
          complain_about_stripped_glibc_ldso
       );
    }
