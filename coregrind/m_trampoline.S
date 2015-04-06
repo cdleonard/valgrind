@@ -1293,10 +1293,13 @@ VG_(mips64_linux_SUBST_FOR_rt_sigreturn):
         nop
         .long 0	/*illegal insn*/
 
-/* There's no particular reason that this needs to be handwritten
+/* There's no particular reason that these need to be handwritten
    assembly, but since that's what this file contains, here's a
-   simple strlen implementation (written in C and compiled by gcc.)
+   few simple string function implementations
+
+   These were written in C and compiled by gcc.
 */
+.set noreorder
 .global VG_(mips64_linux_REDIR_FOR_strlen)
 .type   VG_(mips64_linux_REDIR_FOR_strlen), @function
 VG_(mips64_linux_REDIR_FOR_strlen):
@@ -1318,6 +1321,64 @@ M01:
         nop
 
 .size VG_(mips64_linux_REDIR_FOR_strlen), .-VG_(mips64_linux_REDIR_FOR_strlen)
+
+
+.global VG_(mips64_linux_REDIR_FOR_strcmp)
+.type   VG_(mips64_linux_REDIR_FOR_strcmp), @function
+VG_(mips64_linux_REDIR_FOR_strcmp):
+
+strcmp_next:
+        lb      $v0,0($a0)
+        lb      $v1,0($a1)
+        bne     $v0,$v1,strcmp_retdiff
+        nop
+        beqz    $v0,strcmp_ret0
+        daddiu  $a0,$a0,1
+        daddiu  $a1,$a1,1
+        lb      $v0,0($a0)
+        lb      $v1,0($a1)
+        beq     $v0,$v1,strcmp_next
+        nop
+
+strcmp_retdiff:
+        jr      $ra
+        subu    $v0,$v0,$v1
+        nop
+
+strcmp_ret0:
+        jr      $ra
+        move    $v0,$zero
+
+.size VG_(mips64_linux_REDIR_FOR_strcmp), .-VG_(mips64_linux_REDIR_FOR_strcmp)
+
+
+.global VG_(mips64_linux_REDIR_FOR_strchr)
+.type   VG_(mips64_linux_REDIR_FOR_strchr), @function
+VG_(mips64_linux_REDIR_FOR_strchr):
+
+        lb	$v1,0($a0)
+        beq	$v1,$a1,strchr_ret
+        move	$v0,$a0
+
+strchr_next:
+        beqz	$v1,strchr_ret0
+        nop
+        daddiu	$v0,$v0,1
+        lb	$v1,0($v0)
+        bne	$v1,$a1,strchr_next
+        nop
+
+strchr_ret:
+        jr	$ra
+        nop
+
+strchr_ret0:
+        move	$v0,$zero
+        jr	$ra
+        nop
+
+.size VG_(mips64_linux_REDIR_FOR_strchr), .-VG_(mips64_linux_REDIR_FOR_strchr)
+
 
 .global VG_(trampoline_stuff_end)
 VG_(trampoline_stuff_end):
