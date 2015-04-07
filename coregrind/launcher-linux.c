@@ -366,6 +366,7 @@ int main(int argc, char** argv, char** envp)
        (0==strcmp(VG_PLATFORM,"s390x-linux"))  ||
        (0==strcmp(VG_PLATFORM,"tilegx-linux")) ||
        (0==strcmp(VG_PLATFORM,"mips32-linux")) ||
+       (0==strcmp(VG_PLATFORM,"mips64n32-linux")) ||
        (0==strcmp(VG_PLATFORM,"mips64-linux")))
       default_platform = VG_PLATFORM;
    else
