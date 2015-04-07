@@ -687,16 +687,24 @@ case "$ARCH_MAX-$VGCONF_OS" in
         AC_MSG_RESULT([ok (${ARCH_MAX}-${VGCONF_OS})])
         ;;
      mips64-linux)
-        VGCONF_ARCH_PRI="mips64"
-        VGCONF_PLATFORM_PRI_CAPS="MIPS64_LINUX"
         valt_load_address_pri_norml="0x38000000"
         valt_load_address_pri_inner="0x28000000"
+        valt_load_address_sec_norml="0xUNSET"
+        valt_load_address_sec_inner="0xUNSET"
         if test x$vg_cv_only64bit = xyes; then
+           VGCONF_ARCH_PRI="mips64"
+           VGCONF_ARCH_SEC=""
+           VGCONF_PLATFORM_PRI_CAPS="MIPS64_LINUX"
            VGCONF_PLATFORM_SEC_CAPS=""
-           valt_load_address_sec_norml="0xUNSET"
-           valt_load_address_sec_inner="0xUNSET"
+	elif test x$vg_cv_only32bit = xyes; then
+	   VGCONF_ARCH_PRI="mips64n32"
+           VGCONF_ARCH_SEC=""
+	   VGCONF_PLATFORM_PRI_CAPS="MIPS64N32_LINUX"
+	   VGCONF_PLATFORM_SEC_CAPS=""
         else
+           VGCONF_ARCH_PRI="mips64"
            VGCONF_ARCH_SEC="mips64n32"
+           VGCONF_PLATFORM_PRI_CAPS="MIPS64_LINUX"
            VGCONF_PLATFORM_SEC_CAPS="MIPS64N32_LINUX"
            valt_load_address_sec_norml="0x38000000"
            valt_load_address_sec_inner="0x28000000"
@@ -756,7 +764,8 @@ AM_CONDITIONAL(VGCONF_ARCHS_INCLUDE_S390X,
 AM_CONDITIONAL(VGCONF_ARCHS_INCLUDE_MIPS32,
                test x$VGCONF_PLATFORM_PRI_CAPS = xMIPS32_LINUX )
 AM_CONDITIONAL(VGCONF_ARCHS_INCLUDE_MIPS64,
-               test x$VGCONF_PLATFORM_PRI_CAPS = xMIPS64_LINUX ) 
+               test x$VGCONF_PLATFORM_PRI_CAPS = xMIPS64_LINUX \
+                 -o x$VGCONF_PLATFORM_PRI_CAPS = xMIPS64N32_LINUX )
 AM_CONDITIONAL(VGCONF_ARCHS_INCLUDE_TILEGX,
                test x$VGCONF_PLATFORM_PRI_CAPS = xTILEGX_LINUX )
 
@@ -785,7 +794,8 @@ AM_CONDITIONAL(VGCONF_PLATFORMS_INCLUDE_S390X_LINUX,
 AM_CONDITIONAL(VGCONF_PLATFORMS_INCLUDE_MIPS32_LINUX,
                test x$VGCONF_PLATFORM_PRI_CAPS = xMIPS32_LINUX)
 AM_CONDITIONAL(VGCONF_PLATFORMS_INCLUDE_MIPS64_LINUX,
-               test x$VGCONF_PLATFORM_PRI_CAPS = xMIPS64_LINUX)
+               test x$VGCONF_PLATFORM_PRI_CAPS = xMIPS64_LINUX \
+                 -o x$VGCONF_PLATFORM_PRI_CAPS = xMIPS64N32_LINUX)
 AM_CONDITIONAL(VGCONF_PLATFORMS_INCLUDE_TILEGX_LINUX,
                test x$VGCONF_PLATFORM_PRI_CAPS = xTILEGX_LINUX)
 AM_CONDITIONAL(VGCONF_PLATFORMS_INCLUDE_X86_DARWIN,   
@@ -809,6 +819,7 @@ AM_CONDITIONAL(VGCONF_OS_IS_LINUX,
                  -o x$VGCONF_PLATFORM_PRI_CAPS = xS390X_LINUX \
                  -o x$VGCONF_PLATFORM_PRI_CAPS = xMIPS32_LINUX \
                  -o x$VGCONF_PLATFORM_PRI_CAPS = xMIPS64_LINUX \
+                 -o x$VGCONF_PLATFORM_PRI_CAPS = xMIPS64N32_LINUX \
                  -o x$VGCONF_PLATFORM_PRI_CAPS = xTILEGX_LINUX)
 AM_CONDITIONAL(VGCONF_OS_IS_DARWIN,
                test x$VGCONF_PLATFORM_PRI_CAPS = xX86_DARWIN \
