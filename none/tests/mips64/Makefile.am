@@ -90,9 +90,9 @@ check_PROGRAMS = \
 	unaligned_load \
 	unaligned_load_store
 
-AM_CFLAGS    += @FLAG_M64@
-AM_CXXFLAGS  += @FLAG_M64@
-AM_CCASFLAGS += @FLAG_M64@
+AM_CFLAGS    += $(AM_FLAG_M3264_PRI)
+AM_CXXFLAGS  += $(AM_FLAG_M3264_PRI)
+AM_CCASFLAGS += $(AM_FLAG_M3264_PRI)
 
 allexec_CFLAGS          = $(AM_CFLAGS) @FLAG_W_NO_NONNULL@
 
