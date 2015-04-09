@@ -1627,6 +1627,26 @@ CFLAGS=$safe_CFLAGS
 AC_SUBST(FLAG_OCTEON2)
 
 
+# does this compiler support -mabi=32 ?
+AC_MSG_CHECKING([if gcc accepts -mabi=32])
+
+safe_CFLAGS=$CFLAGS
+CFLAGS="-mabi=32"
+
+AC_COMPILE_IFELSE([AC_LANG_PROGRAM([[]], [[
+  return 0;
+]])], [
+FLAG_MABIO32="-mabi=32"
+AC_MSG_RESULT([yes])
+], [
+FLAG_MABIO32=""
+AC_MSG_RESULT([no])
+])
+CFLAGS=$safe_CFLAGS
+
+AC_SUBST(FLAG_MABIO32)
+
+
 # does this compiler support -mabi=n32 ?
 AC_MSG_CHECKING([if gcc accepts -mabi=n32])
 
@@ -1645,6 +1665,26 @@ AC_MSG_RESULT([no])
 CFLAGS=$safe_CFLAGS
 
 AC_SUBST(FLAG_MABIN32)
+
+
+# does this compiler support -mabi=64 ?
+AC_MSG_CHECKING([if gcc accepts -mabi=64])
+
+safe_CFLAGS=$CFLAGS
+CFLAGS="-mabi=64"
+
+AC_COMPILE_IFELSE([AC_LANG_PROGRAM([[]], [[
+  return 0;
+]])], [
+FLAG_MABIN64="-mabi=64"
+AC_MSG_RESULT([yes])
+], [
+FLAG_MABIN64=""
+AC_MSG_RESULT([no])
+])
+CFLAGS=$safe_CFLAGS
+
+AC_SUBST(FLAG_MABIN64)
 
 
 # does this compiler support -mmmx ?
@@ -2563,6 +2603,12 @@ elif test x$VGCONF_PLATFORM_PRI_CAPS = xX86_DARWIN ; then
   mflag_primary="$FLAG_M32 -arch i386"
 elif test x$VGCONF_PLATFORM_PRI_CAPS = xAMD64_DARWIN ; then
   mflag_primary="$FLAG_M64 -arch x86_64"
+elif test x$VGCONF_PLATFORM_PRI_CAPS = xMIPS32_LINUX ; then
+  mflag_primary=$FLAG_MABIO32
+elif test x$VGCONF_PLATFORM_PRI_CAPS = xMIPS64_LINUX ; then
+  mflag_primary=$FLAG_MABIN64
+elif test x$VGCONF_PLATFORM_PRI_CAPS = xMIPS64N32_LINUX ; then
+  mflag_primary=$FLAG_MABIN32
 fi
 
 mflag_secondary=
@@ -2571,6 +2617,8 @@ if test x$VGCONF_PLATFORM_SEC_CAPS = xX86_LINUX \
   mflag_secondary=$FLAG_M32
 elif test x$VGCONF_PLATFORM_SEC_CAPS = xX86_DARWIN ; then
   mflag_secondary="$FLAG_M32 -arch i386"
+elif test x$VGCONF_PLATFORM_SEC_CAPS = xMIPS64N32_LINUX ; then
+  mflag_primary=$FLAG_MABIN32
 fi
 
 
