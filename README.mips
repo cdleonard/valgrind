@@ -4,6 +4,8 @@ Supported platforms
 - MIPS32 and MIPS64 platforms are currently supported.
 - Both little-endian and big-endian cores are supported.
 - MIPS DSP ASE on MIPS32 platforms is supported.
+- MIPS64 supports both the N64 and N32 ABIs
+- MIPS32 supports the O32 ABI
 
 
 Building V for MIPS
@@ -13,8 +15,12 @@ expects that native GCC is configured correctly and optimized for the platform.
 Yet, this may not be the case with some Debian distributions which configure
 GCC to compile to "mips1" by default. Depending on a target platform, using
 CFLAGS="-mips32r2", CFLAGS="-mips32" or CFLAGS="-mips64" or
-CFLAGS="-mips64 -mabi=64" will do the trick and compile Valgrind correctly.
+CFLAGS="-mips64" will do the trick and compile Valgrind correctly.
 
+- Don't specify the -mabi manually in CFLAGS. Valgrind will figure this out
+for itself based on the --host system and pass this parameter explicitly.
+- For mips64 you can specify --only-32bit and --only-64bit in order to build
+support for only N32 or only the N64 ABIs.
 - Use of cross-toolchain is supported as well.
 - Example of configure line and additional configure options:
 
