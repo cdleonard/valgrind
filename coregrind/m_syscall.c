@@ -810,8 +810,8 @@ asm(
 );
 
 #elif defined(VGP_mips64_linux)
-extern UWord do_syscall_WRK ( UWord a1, UWord a2, UWord a3, UWord a4, UWord a5,
-                              UWord a6, UWord syscall_no, ULong* V1_val );
+extern ULong do_syscall_WRK ( ULong a1, ULong a2, ULong a3, ULong a4, ULong a5,
+                              ULong a6, ULong syscall_no, ULong* V1_val );
 asm (
 ".text\n"
 ".globl do_syscall_WRK\n"
