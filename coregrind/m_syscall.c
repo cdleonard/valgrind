@@ -944,9 +944,9 @@ __asm__ (
 /* Finally, the generic code.  This sends the call to the right
    helper. */
 
-SysRes VG_(do_syscall) ( UWord sysno, UWord a1, UWord a2, UWord a3,
-                                      UWord a4, UWord a5, UWord a6,
-                                      UWord a7, UWord a8 )
+SysRes VG_(do_syscall) ( UWord sysno, SyscallArgT a1, SyscallArgT a2, SyscallArgT a3,
+                                      SyscallArgT a4, SyscallArgT a5, SyscallArgT a6,
+                                      SyscallArgT a7, SyscallArgT a8 )
 {
 #  if defined(VGP_x86_linux)
    UWord val = do_syscall_WRK(sysno,a1,a2,a3,a4,a5,a6);
